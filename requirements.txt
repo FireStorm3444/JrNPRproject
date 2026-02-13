@@ -1,0 +1,7 @@
+ultralytics
+opencv-python
+paddleocr
+easyocr
+fastapi
+uvicorn
+jinja2

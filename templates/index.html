@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NPR GUI</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <h1>NPR Live OCR</h1>
+      <p>Select a test video and OCR mode, then start streaming.</p>
+    </header>
+
+    <section class="controls">
+      <label>
+        Test video
+        <select id="videoSelect">
+          {% for video in videos %}
+          <option value="{{ video }}">{{ video }}</option>
+          {% endfor %}
+        </select>
+      </label>
+
+      <label>
+        OCR mode
+        <select id="modeSelect">
+          <option value="paddle">PaddleOCR (high accuracy)</option>
+          <option value="easy">EasyOCR (moderate accuracy)</option>
+        </select>
+      </label>
+
+      <button id="startBtn">Start</button>
+      <button id="stopBtn" class="secondary" disabled>Stop</button>
+      <button id="manageBtn" class="secondary">Manage Plates</button>
+      <a id="downloadBtn" class="download disabled" href="#" role="button" aria-disabled="true">Download</a>
+      <span id="status" class="status">Idle</span>
+    </section>
+
+    <section class="viewer">
+      <img id="stream" alt="Live stream" />
+    </section>
+
+    <section id="platesPanel" class="plates-panel hidden">
+      <header class="plates-header">
+        <h2>Plate Database</h2>
+        <span id="platesStatus" class="status">Idle</span>
+      </header>
+
+      <div class="plates-form">
+        <input id="plateInput" type="text" placeholder="Enter number plate" />
+        <button id="addPlateBtn">Add</button>
+      </div>
+
+      <table class="plates-table">
+        <thead>
+          <tr>
+            <th>Plate</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="platesTableBody"></tbody>
+      </table>
+    </section>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
+
