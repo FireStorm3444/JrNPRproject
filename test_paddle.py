@@ -41,11 +41,7 @@ def clean_plate_text(text: str) -> str:
         'G': '6'
     }
 
-    # Simple Logic: If the plate is mostly numbers, assume numbers.
-    # (A more advanced version uses index: e.g., chars 0-1 are letters, 2-3 are numbers)
 
-    # Example for Standard Indian Format (XX 00 XX 0000)
-    # This is a basic implementation; tweak based on your region's format.
     text_list = list(text)
 
     # Try to fix the last 4 characters (usually numbers)
@@ -127,12 +123,10 @@ def preprocess_plate(plate_crop):
     gray = cv2.cvtColor(plate_crop, cv2.COLOR_BGR2GRAY)
 
     # 2. CLAHE (Crucial for the dull lighting in your image)
-    # limit=2.0 prevents it from amplifying noise too much
     clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
     enhanced = clahe.apply(gray)
 
     # 3. Smart Upscale
-    # We force the height to be at least 64px (PaddleOCR optimal height is 48-64)
     h, w = enhanced.shape
     target_height = 64
     scale = target_height / h
@@ -141,7 +135,6 @@ def preprocess_plate(plate_crop):
     upscaled = cv2.resize(enhanced, None, fx=scale, fy=scale, interpolation=cv2.INTER_CUBIC)
 
     # 4. Sharpening Kernel (Fixes the "M" looking like "N" blur)
-    # This kernel enhances edges without adding too much grain
     sharpen_kernel = np.array([[-1, -1, -1],
                                [-1, 9, -1],
                                [-1, -1, -1]])
