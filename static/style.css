@@ -78,6 +78,20 @@ button.secondary {
   font-size: 14px;
 }
 
+.viewer {
+  margin-top: 12px;
+}
+
+.viewer #stream {
+  display: block;
+  width: 100%;
+  max-width: 1080px;
+  height: auto;
+  border: 1px solid #2f343f;
+  border-radius: 8px;
+  background: #0b0e14;
+}
+
 .plates-panel {
   margin-top: 20px;
   padding: 16px;
